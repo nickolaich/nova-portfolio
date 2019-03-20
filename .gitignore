@@ -1,0 +1,15 @@
+# Development artifacts
+*.sql
+/.idea
+/.vagrant
+_ide_helper.php
+Homestead.json
+Homestead.yaml
+
+# Environment files
+*.env
+.env
+.env.testing
+
+# Assorted temp files
+.DS_Store
