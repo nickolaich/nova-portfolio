@@ -61,14 +61,14 @@ class PortfolioService extends BaseService
     public function getCollectionMedia($id): Collection
     {
         $c = $this->findCollection($id);
-        return ($c ? $c->media : new Collection())->map(function($media){
+        return $this->updateRemoteUrls(($c ? $c->media : new Collection())->map(function ($media) {
             if (strpos($media->full_url, 'youtube') || strpos($media->full_url, 'vimeo')) {
                 $media->type = 'video';
             } else {
                 $media->type = 'photo';
             }
             return $media;
-        });
+        }));
     }
 
     /**
@@ -78,15 +78,19 @@ class PortfolioService extends BaseService
     public function updateRemoteUrls($list)
     {
         foreach ($list as $m) {
-            if ($m->full_url) {
-                $m->full_remote_url = $m->full_url;
-            } elseif ($m->full) {
-                $m->full_remote_url = Storage::disk(config('nova-portfolio.media_disk'))->url($m->full);
+            if (!$m->full_remote_url) {
+                if ($m->full_url) {
+                    $m->full_remote_url = $m->full_url;
+                } elseif ($m->full) {
+                    $m->full_remote_url = Storage::disk(config('nova-portfolio.media_disk'))->url($m->full);
+                }
+                if ($m->preview) {
+                    $m->preview_remote_url = Storage::disk(config('nova-portfolio.media_disk'))->url($m->preview);
+                }
+                if ($m->full_remote_url) {
+                    $m->save();
+                }
             }
-            if ($m->preview) {
-                $m->preview_remote_url = Storage::disk(config('nova-portfolio.media_disk'))->url($m->preview);
-            }
-            $m->save();
         }
         return $list;
     }
