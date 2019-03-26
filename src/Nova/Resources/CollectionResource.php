@@ -59,10 +59,8 @@ class CollectionResource extends Resource
             Text::make(trans('nova-portfolio::messages.forms.collection_name'), 'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
-
-
-            BelongsToMany::make('Media', 'media', MediaResource::class)->fields(new CollectionMediaFields())
-            ->resolve(func$resource, $attribute = null),
+            
+            BelongsToMany::make('Media', 'media', MediaResource::class)->fields(new CollectionMediaFields()),
         ];
     }
 
