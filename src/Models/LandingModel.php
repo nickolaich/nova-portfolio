@@ -18,7 +18,7 @@ class LandingModel extends Model
             'landing_id',
             'media_id'
         )
-            ->withPivot('position')
+            ->withPivot(['position'])
             ->orderBy('position');
     }
 
@@ -35,7 +35,7 @@ class LandingModel extends Model
             'landing_id',
             'section_id'
         )
-            ->withPivot('position')
+            ->withPivot(['position', 'header'])
             ->orderBy('position');
     }
 }
