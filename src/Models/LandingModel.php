@@ -18,7 +18,8 @@ class LandingModel extends Model
             'landing_id',
             'media_id'
         )
-            ->withPivot('position');
+            ->withPivot('position')
+            ->orderBy('position');
     }
 
     public function collection()
@@ -33,6 +34,8 @@ class LandingModel extends Model
             'landing_section',
             'landing_id',
             'section_id'
-        )->withPivot('position');
+        )
+            ->withPivot('position')
+            ->orderBy('position');
     }
 }
