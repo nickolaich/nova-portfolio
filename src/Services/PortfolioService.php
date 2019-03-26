@@ -61,9 +61,15 @@ class PortfolioService extends BaseService
     public function getCollectionMedia($id): Collection
     {
         $c = $this->findCollection($id);
-        return ($c ? $this->updateRemoteUrls($c->media) : new Collection())->map(function ($media) {
-            if (strpos($media->full_url, 'youtube') || strpos($media->full_url, 'vimeo')) {
+        return $this->prepareCollection(($c ? $this->updateRemoteUrls($c->media) : new Collection()));
+    }
+
+    public function prepareCollection($collection)
+    {
+        return $collection->map(function ($media) {
+            if ($pos1 = strpos($media->full_url, 'youtube') || strpos($media->full_url, 'vimeo')) {
                 $media->type = 'video';
+                $media->hosting = $pos1 >= 0 ? 'youtube' : 'vimeo';
             } else {
                 $media->type = 'photo';
             }
@@ -99,6 +105,14 @@ class PortfolioService extends BaseService
 
         }
         return $list;
+    }
+
+    /**
+     * @return LandingService
+     */
+    public function getLandingService()
+    {
+        return new LandingService();
     }
 
 }

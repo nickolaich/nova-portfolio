@@ -14,7 +14,6 @@ class PortfolioModel extends Model
         'description'
     ];
 
-
     public function media()
     {
         return $this->belongsToMany(MediaModel::class, 'media_portfolio', 'portfolio_id', 'media_id');
@@ -37,5 +36,6 @@ class PortfolioModel extends Model
     {
         return $this->hasMany(TestimonialModel::class, 'portfolio_id');
     }
+
 
 }

@@ -11,6 +11,7 @@ use Nickolaich\NovaPortfolio\Nova\Resources\PortfolioResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\SectionResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\ServiceResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\TestimonialResource;
+use Nickolaich\NovaPortfolio\Services\LandingService;
 use Nickolaich\NovaPortfolio\Services\PortfolioService;
 
 class PortfolioServiceProvider extends NovaApplicationServiceProvider
@@ -51,5 +52,6 @@ class PortfolioServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         $this->app->bind(PortfolioService::class, PortfolioService::class);
+        $this->app->bind(LandingService::class, LandingService::class);
     }
 }

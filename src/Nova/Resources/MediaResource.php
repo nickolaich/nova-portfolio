@@ -5,6 +5,7 @@ namespace Nickolaich\NovaPortfolio\Nova\Resources;
 use Laravel\Nova\Fields\BelongsToMany;
 use Nickolaich\NovaPortfolio\Nova\Actions\AttachCollection;
 use Nickolaich\NovaPortfolio\Nova\Actions\AttachPortfolio;
+use Nickolaich\NovaPortfolio\Nova\Fields\CollectionMediaFields;
 use Nickolaich\NovaPortfolio\Nova\Fields\LandingMediaFields;
 use Nickolaich\NovaPortfolio\Nova\Invokables\StoreMedia;
 use Nickolaich\NovaPortfolio\Models\MediaModel;
@@ -77,7 +78,7 @@ class MediaResource extends Resource
 
             BelongsToMany::make('Portfolio', 'portfolio', PortfolioResource::class),
 
-            BelongsToMany::make('Collection', 'collection', CollectionResource::class),
+            BelongsToMany::make('Collection', 'collection', CollectionResource::class)->fields(new CollectionMediaFields()),
 
             BelongsToMany::make('Landing', 'landing', LandingResource::class)->fields(new LandingMediaFields())
 

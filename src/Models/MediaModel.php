@@ -12,6 +12,26 @@ class MediaModel extends Model
 
     use \Spatie\Tags\HasTags;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($model){
+            if ($model->full_url) {
+                // Use full url
+                $model->full_remote_url = $model->full_url;
+            } elseif ($model->full) {
+                // If full is uploaded - prepare url to avoid access to cloud each time
+                $model->full_remote_url = Storage::disk(config('nova-portfolio.media_disk'))->url($model->full);
+            }
+            if ($model->preview) {
+                // If preview is uploaded - prepare url to avoid access to cloud each time
+                $model->preview_remote_url = Storage::disk(config('nova-portfolio.media_disk'))->url($model->preview);
+            }
+        });
+    }
+
+
     public function portfolio()
     {
         return $this->belongsToMany(
@@ -29,7 +49,8 @@ class MediaModel extends Model
             'collection_media',
             'media_id',
             'collection_id'
-        );
+        )
+            ->withPivot(['position']);
     }
 
     public function landing()

@@ -4,6 +4,7 @@ namespace Nickolaich\NovaPortfolio\Nova\Resources;
 
 use Laravel\Nova\Fields\BelongsToMany;
 use Nickolaich\NovaPortfolio\Nova\Actions\AttachPortfolio;
+use Nickolaich\NovaPortfolio\Nova\Fields\CollectionMediaFields;
 use Nickolaich\NovaPortfolio\Nova\Invokables\StoreMedia;
 use Nickolaich\NovaPortfolio\Models\CollectionModel;
 use Spatie\TagsField\Tags;
@@ -60,8 +61,8 @@ class CollectionResource extends Resource
                 ->rules('required', 'max:255'),
 
 
-            BelongsToMany::make('Media', 'media', MediaResource::class)
-
+            BelongsToMany::make('Media', 'media', MediaResource::class)->fields(new CollectionMediaFields())
+            ->resolve(func$resource, $attribute = null),
         ];
     }
 

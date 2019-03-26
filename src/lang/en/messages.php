@@ -23,6 +23,8 @@ return [
         'service_icon' => 'Icon',
         'testimonial_author' => 'Author',
         'testimonial_text' => 'Testimonial',
+        'landing_heading' => 'Heading',
+        'landing_subheading' => 'Sub heading'
     ],
 
     'resources' => [
@@ -33,5 +35,10 @@ return [
         'section_label' => 'Content Sections',
         'service_label' => 'Services',
         'testimonial_label' => 'Testimonials',
+    ],
+    'seo' => [
+        'title' => 'Seo title',
+        'description' => 'Seo description',
+        'keywords' => 'Seo keywords',
     ]
 ];

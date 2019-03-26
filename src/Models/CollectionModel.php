@@ -11,7 +11,15 @@ class CollectionModel extends Model
 
     
     public function media(){
-        return $this->belongsToMany(MediaModel::class, 'collection_media', 'collection_id', 'media_id');
+        return $this
+            ->belongsToMany(
+                MediaModel::class,
+                'collection_media',
+                'collection_id',
+                'media_id'
+            )
+            ->withPivot(['position'])
+            ->orderBy('position');
     }
 
     public function landings(){

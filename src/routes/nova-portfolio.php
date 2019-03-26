@@ -10,5 +10,6 @@ Route::group(['prefix' => config('nova-portfolio.api_prefix'), 'namespace'=>'\Ni
     $router->get('portfolio/{portfolio}/services', 'PortfolioController@services')->name('nova-portfolio.services');
     $router->get('portfolio/{portfolio}/testimonials', 'PortfolioController@testimonials')->name('nova-portfolio.testimonials');
     $router->get('collections/{collection}/media', 'PortfolioController@collectionMedia')->name('nova-portfolio.collection.media');
+    $router->get('landing/{url_slug}', 'LandingController@show')->name('nova-portfolio.landing.show');
 
 });

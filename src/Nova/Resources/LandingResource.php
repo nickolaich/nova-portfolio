@@ -61,6 +61,9 @@ class LandingResource extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
+            Text::make(trans('nova-portfolio::messages.forms.landing_heading'), 'heading')->hideFromIndex(),
+            Text::make(trans('nova-portfolio::messages.forms.landing_subheading'), 'subheading')->hideFromIndex(),
+
             Text::make(trans('nova-portfolio::messages.forms.url_slug'), 'url_slug')
                 ->sortable()
                 ->rules(
@@ -69,6 +72,10 @@ class LandingResource extends Resource
                 ),
 
             BelongsTo::make('Collection', 'collection', CollectionResource::class),
+
+            Text::make(trans('nova-portfolio::messages.seo.title'), 'seo_title')->hideFromIndex(),
+            Text::make(trans('nova-portfolio::messages.seo.description'), 'seo_description')->hideFromIndex(),
+            Text::make(trans('nova-portfolio::messages.seo.keywords'), 'seo_keywords')->hideFromIndex(),
 
 
             //BelongsTo::make('Portfolio', 'portfolio', 'Nickolaich\NovaPortfolio\Nova\Portfolio'),
