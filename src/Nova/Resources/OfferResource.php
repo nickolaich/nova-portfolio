@@ -3,13 +3,15 @@
 namespace Nickolaich\NovaPortfolio\Nova\Resources;
 
 use Laravel\Nova\Fields\BelongsToMany;
-use Nickolaich\NovaPortfolio\Nova\Actions\AttachCollection;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Trix;
+use Nickolaich\NovaPortfolio\Models\OfferModel;
 use Nickolaich\NovaPortfolio\Nova\Actions\AttachPortfolio;
-use Nickolaich\NovaPortfolio\Nova\Actions\SetOrdering;
-use Nickolaich\NovaPortfolio\Nova\Fields\CollectionMediaFields;
-use Nickolaich\NovaPortfolio\Nova\Fields\LandingMediaFields;
+use Nickolaich\NovaPortfolio\Nova\Fields\LandingSectionFields;
 use Nickolaich\NovaPortfolio\Nova\Invokables\StoreMedia;
-use Nickolaich\NovaPortfolio\Models\MediaModel;
+use Nickolaich\NovaPortfolio\Models\ServiceModel;
 use Spatie\TagsField\Tags;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\File;
@@ -20,14 +22,14 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource as NovaResource;
 
-class MediaResource extends Resource
+class OfferResource extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = MediaModel::class;
+    public static $model = OfferModel::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,12 +44,11 @@ class MediaResource extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id'
     ];
 
-    public static $displayInNavigation = true;
 
-    public static $perPageViaRelationship = 15;
+    public static $displayInNavigation = true;
 
     /**
      * Get the fields displayed by the resource.
@@ -61,29 +62,33 @@ class MediaResource extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make(trans('nova-portfolio::messages.forms.media_name'), 'name')
+            Text::make(trans('nova-portfolio::messages.forms.offer_name'), 'name')
                 ->sortable()
-                ->rules('max:255'),
+                ->rules('required', 'max:255'),
 
-            Image::make('Preview')
+            Textarea::make(trans('nova-portfolio::messages.forms.offer_overview'), 'overview')->hideFromIndex(),
+
+            Image::make('Image')
                 ->disk($disk)
-                ->store(new StoreMedia('preview'))
+                ->store(new StoreMedia('image', []))
                 ->hideFromIndex(),
 
-            Text::make('Full Url', 'full_url')
-                ->hideFromIndex(),
-            Image::make('Full')
-                ->disk($disk)
-                ->store(new StoreMedia('full'))
-                ->hideFromIndex(),
+            Text::make(trans('nova-portfolio::messages.forms.offer_price'), 'price'),
 
-            Tags::make('Tags'),//->type('my-special-type'),
+            Boolean::make(trans('nova-portfolio::messages.forms.offer_on_main'), 'on_main'),
 
-            BelongsToMany::make('Portfolio', 'portfolio', PortfolioResource::class),
+            Text::make(trans('nova-portfolio::messages.forms.offer_url'), 'url')->hideFromIndex(),
 
-            BelongsToMany::make('Collection', 'collection', CollectionResource::class)->fields(new CollectionMediaFields()),
+            Text::make(trans('nova-portfolio::messages.forms.offer_additional_1'), 'additional_1')->hideFromIndex(),
 
-            BelongsToMany::make('Landing', 'landing', LandingResource::class)->fields(new LandingMediaFields())
+            Text::make(trans('nova-portfolio::messages.forms.offer_additional_2'), 'additional_2')->hideFromIndex(),
+
+            Text::make(trans('nova-portfolio::messages.forms.offer_position'), 'position')->hideFromIndex(),
+
+            Text::make(trans('nova-portfolio::messages.forms.offer_position_on_main'), 'position_on_main')->hideFromIndex(),
+
+            BelongsTo::make('Portfolio', 'portfolio', PortfolioResource::class),
+            //BelongsToMany::make('Media', 'media', Media::class)
 
         ];
     }
@@ -130,14 +135,10 @@ class MediaResource extends Resource
     public function actions(Request $request)
     {
         return [
-            new AttachPortfolio(),
-            new AttachCollection(),
-            //new SetOrdering()
         ];
     }
 
     public static function label() {
-        return trans('nova-portfolio::messages.resources.media_label');
+        return trans('nova-portfolio::messages.resources.offer_label');
     }
-
 }

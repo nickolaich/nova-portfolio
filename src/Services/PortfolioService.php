@@ -43,6 +43,24 @@ class PortfolioService extends BaseService
     }
 
     /**
+     * Get services of portfolio
+     * @param $id
+     * @return Collection
+     */
+    public function getOffers($id, $opts = []): Collection
+    {
+        $p = $this->findPortfolio($id);
+        if (!$p) {
+            return new Collection();
+        }
+        if ($opts['on_main'] ?? false) {
+            return $p->offers()->where('on_main', '=', 1)->orderBy('position_on_main')->get();
+        } else {
+            return $p->offers()->orderBy('position')->get();
+        }
+    }
+
+    /**
      * Get testimonials of portfolio
      * @param $id
      * @return Collection

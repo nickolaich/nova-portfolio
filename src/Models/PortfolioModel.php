@@ -32,6 +32,11 @@ class PortfolioModel extends Model
         return $this->hasMany(ServiceModel::class, 'portfolio_id');
     }
 
+    public function offers()
+    {
+        return $this->hasMany(OfferModel::class, 'portfolio_id');
+    }
+
     public function testimonials()
     {
         return $this->hasMany(TestimonialModel::class, 'portfolio_id');

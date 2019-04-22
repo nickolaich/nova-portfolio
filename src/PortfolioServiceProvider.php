@@ -7,6 +7,7 @@ use Laravel\Nova\NovaApplicationServiceProvider;
 use Nickolaich\NovaPortfolio\Nova\Resources\CollectionResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\LandingResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\MediaResource;
+use Nickolaich\NovaPortfolio\Nova\Resources\OfferResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\PortfolioResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\SectionResource;
 use Nickolaich\NovaPortfolio\Nova\Resources\ServiceResource;
@@ -42,6 +43,7 @@ class PortfolioServiceProvider extends NovaApplicationServiceProvider
             LandingResource::class,
             ServiceResource::class,
             TestimonialResource::class,
+            OfferResource::class,
         ]);
     }
     /**

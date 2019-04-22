@@ -24,7 +24,16 @@ return [
         'testimonial_author' => 'Author',
         'testimonial_text' => 'Testimonial',
         'landing_heading' => 'Heading',
-        'landing_subheading' => 'Sub heading'
+        'landing_subheading' => 'Sub heading',
+        'offer_name' => 'Name',
+        'offer_overview' => 'Offer overview',
+        'offer_price' => 'Offer price',
+        'offer_on_main' => 'On Main',
+        'offer_url' => 'Link to page',
+        'offer_additional_1' => 'Additional info 1',
+        'offer_additional_2' => 'Additional info 2',
+        'offer_position' => 'Position',
+        'offer_position_on_main' => 'Position on main',
     ],
 
     'resources' => [
@@ -35,6 +44,7 @@ return [
         'section_label' => 'Content Sections',
         'service_label' => 'Services',
         'testimonial_label' => 'Testimonials',
+        'offer_label' => 'Offers',
     ],
     'seo' => [
         'title' => 'Seo title',
