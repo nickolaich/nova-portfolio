@@ -4,6 +4,7 @@ namespace Nickolaich\NovaPortfolio\Nova\Resources;
 
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Textarea;
 use Nickolaich\NovaPortfolio\Nova\Actions\AttachPortfolio;
 use Nickolaich\NovaPortfolio\Nova\Fields\LandingMediaFields;
 use Nickolaich\NovaPortfolio\Nova\Fields\LandingSectionFields;
@@ -74,8 +75,9 @@ class LandingResource extends Resource
             BelongsTo::make('Collection', 'collection', CollectionResource::class),
 
             Text::make(trans('nova-portfolio::messages.seo.title'), 'seo_title')->hideFromIndex(),
-            Text::make(trans('nova-portfolio::messages.seo.description'), 'seo_description')->hideFromIndex(),
-            Text::make(trans('nova-portfolio::messages.seo.keywords'), 'seo_keywords')->hideFromIndex(),
+            Textarea::make(trans('nova-portfolio::messages.seo.description'), 'seo_description')->hideFromIndex(),
+            Textarea::make(trans('nova-portfolio::messages.seo.keywords'), 'seo_keywords')->hideFromIndex(),
+            Textarea::make(trans('nova-portfolio::messages.forms.custom_js'), 'custom_js')->hideFromIndex(),
 
 
             //BelongsTo::make('Portfolio', 'portfolio', 'Nickolaich\NovaPortfolio\Nova\Portfolio'),

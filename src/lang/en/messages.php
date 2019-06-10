@@ -34,6 +34,7 @@ return [
         'offer_additional_2' => 'Additional info 2',
         'offer_position' => 'Position',
         'offer_position_on_main' => 'Position on main',
+        'custom_js' => 'Custom JS Code (w/o script tag)',
     ],
 
     'resources' => [

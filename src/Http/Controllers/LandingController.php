@@ -14,7 +14,6 @@ class LandingController extends Controller
         // No options yet
         $landing->options = null;
         $landing->gallery = $portfolioService->getCollectionMedia($landing->collection_id)->merge($portfolioService->prepareCollection($landing->media));
-
         return $landing;
     }
 
