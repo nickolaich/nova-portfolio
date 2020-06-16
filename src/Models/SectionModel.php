@@ -15,8 +15,8 @@ class SectionModel extends Model
         return $this->belongsToMany(
             LandingModel::class,
             'landing_section',
-            'landing_id',
-            'section_id'
+            'section_id',
+            'landing_id'
         )
             ->withPivot('position')->orderBy('position');
     }
